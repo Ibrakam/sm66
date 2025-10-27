@@ -1,12 +1,20 @@
 from database import get_db
 from database.models import User
-
-
+from api.user_api.schemas import UserSchema
 
 """
 Функция для создания пользовтеля
 Удаления польователя
 """
+
+
+def create_user_db(user: UserSchema):
+    db = next(get_db())
+    user_data = user.model_dump()
+    new_user = User(**user_data)
+    db.add(new_user)
+    db.commit()
+    return new_user.id
 
 
 def get_all_or_exact_user_db(uid=0):
@@ -17,6 +25,7 @@ def get_all_or_exact_user_db(uid=0):
             return exact_user
         return False
     return db.query(User).all()
+
 
 def update_user_db(uid, change_info, new_info):
     db = next(get_db())
@@ -31,4 +40,3 @@ def update_user_db(uid, change_info, new_info):
         db.commit()
         return True
     return False
-
