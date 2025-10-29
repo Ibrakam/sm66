@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from api.post.schemas import PostSchema, PostRead
+from api.post_api.schemas import PostSchema, PostRead
 from database.postservice import create_post, all_user_posts, post_with_id, change_post, delete_post
 
 post_router = APIRouter(prefix="/post", tags=["PostAPI"])

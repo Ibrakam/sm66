@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameConnect - Social Gaming Network</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0a0e27 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: rgba(20, 25, 45, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid #7bed9f;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .user-info-bar {
+            background: rgba(15, 20, 40, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(123, 237, 159, 0.3);
+            padding: 25px 0;
+        }
+
+        .user-info-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .user-info-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #7bed9f, #5fd682);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+            border: 3px solid #7bed9f;
+            box-shadow: 0 5px 20px rgba(123, 237, 159, 0.3);
+        }
+
+        .user-info-details {
+            flex: 1;
+        }
+
+        .user-info-name {
+            font-size: 28px;
+            font-weight: bold;
+            color: #7bed9f;
+            margin-bottom: 5px;
+        }
+
+        .user-info-handle {
+            font-size: 16px;
+            color: #b0b0b0;
+            margin-bottom: 10px;
+        }
+
+        .user-info-stats {
+            display: flex;
+            gap: 30px;
+            margin-top: 10px;
+        }
+
+        .user-info-stat {
+            display: flex;
+            gap: 8px;
+        }
+
+        .user-info-stat-number {
+            font-weight: bold;
+            color: #e0e0e0;
+        }
+
+        .user-info-stat-label {
+            color: #b0b0b0;
+        }
+
+        .user-info-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .user-action-btn {
+            padding: 12px 25px;
+            border-radius: 25px;
+            border: 1px solid #7bed9f;
+            background: transparent;
+            color: #7bed9f;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .user-action-btn:hover {
+            background: #7bed9f;
+            color: #0a0e27;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(123, 237, 159, 0.4);
+        }
+
+        .user-action-btn.primary {
+            background: linear-gradient(135deg, #7bed9f, #5fd682);
+            color: #0a0e27;
+            border: none;
+        }
+
+        .user-action-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(123, 237, 159, 0.5);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #7bed9f;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            background: rgba(123, 237, 159, 0.2);
+            color: #7bed9f;
+            transform: translateY(-2px);
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 300px 1fr 320px;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .sidebar {
+            background: rgba(20, 25, 45, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(123, 237, 159, 0.3);
+            height: fit-content;
+        }
+
+        .profile-card {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(123, 237, 159, 0.1), rgba(123, 237, 159, 0.05));
+            border-radius: 15px;
+            margin-bottom: 25px;
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #7bed9f, #5fd682);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 40px;
+            border: 3px solid #7bed9f;
+        }
+
+        .username {
+            font-size: 20px;
+            font-weight: bold;
+            color: #7bed9f;
+            margin-bottom: 5px;
+        }
+
+        .user-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(123, 237, 159, 0.3);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 18px;
+            font-weight: bold;
+            color: #7bed9f;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #b0b0b0;
+        }
+
+        .menu-item {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .menu-item:hover {
+            background: rgba(123, 237, 159, 0.2);
+            transform: translateX(5px);
+        }
+
+        .feed {
+            background: rgba(20, 25, 45, 0.4);
+            border-radius: 20px;
+            padding: 30px;
+        }
+
+        .create-post {
+            background: rgba(20, 25, 45, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(123, 237, 159, 0.3);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .post-input {
+            width: 100%;
+            background: rgba(30, 35, 55, 0.6);
+            border: 1px solid rgba(123, 237, 159, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            color: #e0e0e0;
+            font-size: 16px;
+            resize: vertical;
+            min-height: 100px;
+            font-family: inherit;
+        }
+
+        .post-input:focus {
+            outline: none;
+            border-color: #7bed9f;
+            box-shadow: 0 0 20px rgba(123, 237, 159, 0.2);
+        }
+
+        .post-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 25px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #7bed9f, #5fd682);
+            color: #0a0e27;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(123, 237, 159, 0.4);
+        }
+
+        .post {
+            background: rgba(20, 25, 45, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(123, 237, 159, 0.3);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .post:hover {
+            border-color: #7bed9f;
+            box-shadow: 0 5px 30px rgba(123, 237, 159, 0.2);
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .post-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #7bed9f, #5fd682);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            border: 2px solid #7bed9f;
+        }
+
+        .post-info {
+            flex: 1;
+        }
+
+        .post-username {
+            font-weight: bold;
+            color: #7bed9f;
+        }
+
+        .post-time {
+            font-size: 12px;
+            color: #b0b0b0;
+        }
+
+        .post-content {
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+
+        .post-actions-bar {
+            display: flex;
+            gap: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(123, 237, 159, 0.2);
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            color: #b0b0b0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            padding: 8px 15px;
+            border-radius: 10px;
+        }
+
+        .action-btn:hover {
+            color: #7bed9f;
+            background: rgba(123, 237, 159, 0.1);
+        }
+
+        .trending {
+            background: rgba(20, 25, 45, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(123, 237, 159, 0.3);
+            height: fit-content;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #7bed9f;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .trending-item {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(30, 35, 55, 0.4);
+        }
+
+        .trending-item:hover {
+            background: rgba(123, 237, 159, 0.2);
+            transform: translateX(-5px);
+        }
+
+        .trending-topic {
+            color: #7bed9f;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .trending-count {
+            font-size: 12px;
+            color: #b0b0b0;
+        }
+
+        .suggested-users {
+            background: rgba(20, 25, 45, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(123, 237, 159, 0.3);
+            margin-top: 25px;
+        }
+
+        .user-suggestion {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(30, 35, 55, 0.4);
+        }
+
+        .user-suggestion:hover {
+            background: rgba(123, 237, 159, 0.2);
+            transform: translateX(-5px);
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #7bed9f, #5fd682);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            border: 2px solid #7bed9f;
+            font-size: 20px;
+        }
+
+        .user-details {
+            flex: 1;
+        }
+
+        .user-name {
+            font-weight: bold;
+            color: #e0e0e0;
+            margin-bottom: 3px;
+        }
+
+        .user-handle {
+            font-size: 12px;
+            color: #b0b0b0;
+        }
+
+        .follow-btn {
+            padding: 8px 20px;
+            border-radius: 20px;
+            border: 1px solid #7bed9f;
+            background: transparent;
+            color: #7bed9f;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .follow-btn:hover {
+            background: #7bed9f;
+            color: #0a0e27;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 1200px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar, .trending {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">GameConnect</div>
+            <nav>
+                <a href="#home">Home</a>
+                <a href="#explore">Explore</a>
+                <a href="#notifications">Notifications</a>
+                <a href="#messages">Messages</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="user-info-bar">
+        <div class="user-info-content">
+            <div class="user-info-avatar">🎮</div>
+            <div class="user-info-details">
+                <div class="user-info-name">Player_One</div>
+                <div class="user-info-handle">@player_one_official</div>
+                <div class="user-info-stats">
+                    <div class="user-info-stat">
+                        <span class="user-info-stat-number">256</span>
+                        <span class="user-info-stat-label">Posts</span>
+                    </div>
+                    <div class="user-info-stat">
+                        <span class="user-info-stat-number">1.2K</span>
+                        <span class="user-info-stat-label">Followers</span>
+                    </div>
+                    <div class="user-info-stat">
+                        <span class="user-info-stat-number">856</span>
+                        <span class="user-info-stat-label">Following</span>
+                    </div>
+                    <div class="user-info-stat">
+                        <span class="user-info-stat-number">48</span>
+                        <span class="user-info-stat-label">Trophies</span>
+                    </div>
+                </div>
+            </div>
+            <div class="user-info-actions">
+                <button class="user-action-btn primary">Edit Profile</button>
+                <button class="user-action-btn">Share</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="main-content">
+            <aside class="sidebar">
+                <div class="profile-card">
+                    <div class="avatar">🎮</div>
+                    <div class="username">Player_One</div>
+                    <div class="user-stats">
+                        <div class="stat">
+                            <div class="stat-number">1.2K</div>
+                            <div class="stat-label">Followers</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">856</div>
+                            <div class="stat-label">Following</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item">📊 Dashboard</div>
+                <div class="menu-item">👥 Friends</div>
+                <div class="menu-item">🏆 Achievements</div>
+                <div class="menu-item">⚙️ Settings</div>
+            </aside>
+
+            <main class="feed">
+                <div class="create-post">
+                    <textarea class="post-input" placeholder="Share your gaming moments..."></textarea>
+                    <div class="post-actions">
+                        <div></div>
+                        <button class="btn btn-primary">Post</button>
+                    </div>
+                </div>
+
+                <div class="post">
+                    <div class="post-header">
+                        <div class="post-avatar">🎯</div>
+                        <div class="post-info">
+                            <div class="post-username">GamerPro_X</div>
+                            <div class="post-time">2 hours ago</div>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        Just finished Spider-Man 2! The story was absolutely incredible. Those boss battles were next level! 🕷️ Who else has completed it?
+                    </div>
+                    <div class="post-actions-bar">
+                        <button class="action-btn">❤️ 324</button>
+                        <button class="action-btn">💬 48</button>
+                        <button class="action-btn">🔄 92</button>
+                    </div>
+                </div>
+
+                <div class="post">
+                    <div class="post-header">
+                        <div class="post-avatar">⚡</div>
+                        <div class="post-info">
+                            <div class="post-username">TechNinja_99</div>
+                            <div class="post-time">5 hours ago</div>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        The new PS5 update is amazing! The performance improvements are really noticeable. Finally got that smooth 120fps in my favorite games 🚀
+                    </div>
+                    <div class="post-actions-bar">
+                        <button class="action-btn">❤️ 567</button>
+                        <button class="action-btn">💬 103</button>
+                        <button class="action-btn">🔄 156</button>
+                    </div>
+                </div>
+
+                <div class="post">
+                    <div class="post-header">
+                        <div class="post-avatar">🌟</div>
+                        <div class="post-info">
+                            <div class="post-username">CasualGamer_24</div>
+                            <div class="post-time">8 hours ago</div>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        Looking for co-op partners for Helldivers 2! Drop your PSN below if you want to team up. Let's save democracy together! 💪
+                    </div>
+                    <div class="post-actions-bar">
+                        <button class="action-btn">❤️ 189</button>
+                        <button class="action-btn">💬 67</button>
+                        <button class="action-btn">🔄 34</button>
+                    </div>
+                </div>
+            </main>
+
+            <aside class="trending">
+                <h3 class="section-title">Trending Games</h3>
+                <div class="trending-item">
+                    <div class="trending-topic">#GodOfWar</div>
+                    <div class="trending-count">15.2K posts</div>
+                </div>
+                <div class="trending-item">
+                    <div class="trending-topic">#Helldivers2</div>
+                    <div class="trending-count">12.8K posts</div>
+                </div>
+                <div class="trending-item">
+                    <div class="trending-topic">#SpiderMan2</div>
+                    <div class="trending-count">10.5K posts</div>
+                </div>
+                <div class="trending-item">
+                    <div class="trending-topic">#PS5Pro</div>
+                    <div class="trending-count">8.9K posts</div>
+                </div>
+                <div class="trending-item">
+                    <div class="trending-topic">#FinalFantasy</div>
+                    <div class="trending-count">7.3K posts</div>
+                </div>
+
+                <div class="suggested-users">
+                    <h3 class="section-title">Suggested Gamers</h3>
+
+                    <div class="user-suggestion">
+                        <div class="user-avatar">🎮</div>
+                        <div class="user-details">
+                            <div class="user-name">ProGamer_Elite</div>
+                            <div class="user-handle">@progamer_elite</div>
+                        </div>
+                        <button class="follow-btn">Follow</button>
+                    </div>
+
+                    <div class="user-suggestion">
+                        <div class="user-avatar">⚔️</div>
+                        <div class="user-details">
+                            <div class="user-name">SwordMaster_99</div>
+                            <div class="user-handle">@swordmaster99</div>
+                        </div>
+                        <button class="follow-btn">Follow</button>
+                    </div>
+
+                    <div class="user-suggestion">
+                        <div class="user-avatar">🏆</div>
+                        <div class="user-details">
+                            <div class="user-name">TrophyHunter</div>
+                            <div class="user-handle">@trophy_hunter</div>
+                        </div>
+                        <button class="follow-btn">Follow</button>
+                    </div>
+
+                    <div class="user-suggestion">
+                        <div class="user-avatar">🎯</div>
+                        <div class="user-details">
+                            <div class="user-name">SnipeKing_247</div>
+                            <div class="user-handle">@snipeking247</div>
+                        </div>
+                        <button class="follow-btn">Follow</button>
+                    </div>
+
+                    <div class="user-suggestion">
+                        <div class="user-avatar">🔥</div>
+                        <div class="user-details">
+                            <div class="user-name">FireStorm_X</div>
+                            <div class="user-handle">@firestorm_x</div>
+                        </div>
+                        <button class="follow-btn">Follow</button>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+</body>
+</html>
