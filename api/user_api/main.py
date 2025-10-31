@@ -21,6 +21,7 @@ async def create_user_api(user: UserSchema):
 @user_router.get("/get_all_or_exact_user", response_model=UserRead)
 async def get_users_api(uid: int = 0):
     result = get_all_or_exact_user_db(uid)
+    print(response_result(result))
     return response_result(result)
 
 

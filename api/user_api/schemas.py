@@ -1,5 +1,5 @@
 from pydantic import BaseModel, EmailStr
-from typing import Optional, Union
+from typing import Optional, Union, List
 
 
 class UserSchema(BaseModel):
@@ -15,4 +15,4 @@ class UserSchema(BaseModel):
 
 class UserRead(BaseModel):
     status: int
-    message: Union[str | int | bool | list | dict]
+    message: Union[str | int | bool | List[UserSchema] | UserSchema]

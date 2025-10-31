@@ -1,4 +1,4 @@
-from api.post.schemas import PostSchema
+from api.post_api.schemas import PostSchema
 from database import get_db
 from database.models import UserPost
 

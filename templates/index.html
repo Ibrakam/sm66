@@ -537,8 +537,8 @@
         <div class="user-info-content">
             <div class="user-info-avatar">🎮</div>
             <div class="user-info-details">
-                <div class="user-info-name">Player_One</div>
-                <div class="user-info-handle">@player_one_official</div>
+                <div class="user-info-name">{{ user.name }} {{ user.surname }}</div>
+                <div class="user-info-handle">@{{ user.username }}</div>
                 <div class="user-info-stats">
                     <div class="user-info-stat">
                         <span class="user-info-stat-number">256</span>
@@ -570,7 +570,7 @@
             <aside class="sidebar">
                 <div class="profile-card">
                     <div class="avatar">🎮</div>
-                    <div class="username">Player_One</div>
+                    <div class="username">{{ user.username }}</div>
                     <div class="user-stats">
                         <div class="stat">
                             <div class="stat-number">1.2K</div>
